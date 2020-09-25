@@ -6,6 +6,7 @@ YELLOW=$(tput setaf 3)
 RESET=$(tput sgr 0)
 
 echo "$GREEN Installing Basic Packages $RESET"
+# TODO enable Canonical Partners repo
 sudo apt update
 sudo apt upgrade -y
 APPS=(
@@ -16,7 +17,7 @@ APPS=(
 $INSTALL_SRC_DIR/aptInstall.sh "${#APPS[@]}" "${APPS[@]}"
 
 # configuration
-
+# TODO force terminal coloring
 if [[ ! -f ~/.ssh/id_rsa ]]; then
   echo "$GREEN Generate ssh key. $RESET"
   ssh-keygen -t rsa -f ~/.ssh/id_rsa -N ""
