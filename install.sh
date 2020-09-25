@@ -8,7 +8,6 @@ RESET=$(tput sgr 0)
 echo "$GREEN Installing Basic Packages $RESET"
 sudo apt update
 sudo apt upgrade -y
-sudo apt install -y
 APPS=(
   python3-dev python3-pip 
   synaptic ubuntu-restricted-extras gufw 
@@ -37,5 +36,6 @@ else
 fi
 
 
-echo "$GREEN Installing chosen packages Packages $RESET"
+echo "$GREEN Installing chosen packages $RESET"
+sudo apt update
 $INSTALL_SRC_DIR/aptInstall.sh "${#APPS[@]}" "${APPS[@]}"
