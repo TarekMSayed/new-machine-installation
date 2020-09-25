@@ -16,12 +16,18 @@ APPS=(
 	file-roller ssh git curl gnome-tweaks dconf-editor)
 $INSTALL_SRC_DIR/aptInstall.sh "${#APPS[@]}" "${APPS[@]}"
 
+# configuration
+
+if [[ ! -f ~/.ssh/id_rsa ]]; then
+	echo "$GREEN Generate ssh key. $RESET"
+	ssh-keygen -t rsa -f ~/.ssh/id_rsa -N ""
+fi
 
 APPS=()
 
 unset answer
 APP='qbittorrent'
-read -p "$YELLOW do you want to install $APP [y/N]: $RESET" answer
+read -p "$YELLOW Do you want to install $APP [y/N]: $RESET" answer
 if [[ $answer =~ y|Y|yes ]]; then
 	echo "$GREEN Adding $APP $RESET"
 	sudo add-apt-repository ppa:qbittorrent-team/qbittorrent-stable
