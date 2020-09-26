@@ -7,6 +7,7 @@ RESET=$(tput sgr 0)
 
 echo "$GREEN Installing Basic Packages $RESET"
 # TODO enable Canonical Partners repo
+sudo add-apt-repository ppa:libreoffice/ppa
 sudo apt update
 sudo apt upgrade -y
 APPS=(
