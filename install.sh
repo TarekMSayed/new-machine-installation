@@ -19,7 +19,9 @@ APPS=(
 $INSTALL_SRC_DIR/aptInstall.sh "${#APPS[@]}" "${APPS[@]}"
 
 # configuration
-# TODO force terminal coloring
+# force terminal coloring
+sed -i "s~#force_color_prompt=yes~force_color_prompt=yes~g" ~/.bashrc
+source ~/.bashrc
 if [[ ! -f ~/.ssh/id_rsa ]]; then
   echo "$GREEN Generate ssh key. $RESET"
   ssh-keygen -t rsa -f ~/.ssh/id_rsa -N ""
