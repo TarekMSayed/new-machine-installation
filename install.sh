@@ -48,6 +48,17 @@ else
   echo "$RED $APP will not installed $RESET"
 fi
 
+unset answer
+APP='CodeBlocks'
+read -p "$YELLOW Do you want to install $APP [y/N]: $RESET" answer
+if [[ $answer =~ y|Y|yes ]]; then
+  echo "$GREEN Adding $APP $RESET"
+  sudo add-apt-repository ppa:damien-moore/codeblocks-stable
+  APPS+=(codeblocks)
+else
+  echo "$RED $APP will not installed $RESET"
+fi
+
 echo "$GREEN Installing chosen packages $RESET"
 sudo apt update
 $INSTALL_SRC_DIR/aptInstall.sh "${#APPS[@]}" "${APPS[@]}"
