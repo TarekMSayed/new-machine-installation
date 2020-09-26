@@ -71,6 +71,18 @@ else
   echo "$RED $APP will not installed $RESET"
 fi
 
+unset answer
+APP='VScode'
+read -p "$YELLOW Do you want to install $APP [y/N]: $RESET" answer
+if [[ $answer =~ y|Y|yes ]]; then
+  echo "$GREEN Adding $APP $RESET"
+  sudo add-apt-repository "deb [arch=amd64] https://packages.microsoft.com/repos/vscode stable main"
+  wget -q https://packages.microsoft.com/keys/microsoft.asc -O- | sudo apt-key add -
+  APPS+=(code)
+else
+  echo "$RED $APP will not installed $RESET"
+fi
+
 echo "$GREEN Installing chosen packages $RESET"
 sudo apt update
 $INSTALL_SRC_DIR/aptInstall.sh "${#APPS[@]}" "${APPS[@]}"
