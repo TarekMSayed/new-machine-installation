@@ -95,6 +95,20 @@ else
   echo "$RED $APP will not installed $RESET"
 fi
 
+unset answer
+APP='docker-ce'
+read -p "$YELLOW Do you want to install $APP [y/N]: $RESET" answer
+if [[ $answer =~ y|Y|yes ]]; then
+  echo "$GREEN Adding $APP $RESET"
+  sudo add-apt-repository "deb [arch=amd64] https://download.docker.com/linux/ubuntu $(lsb_release -cs) stable"
+  curl -fsSL https://download.docker.com/linux/ubuntu/gpg | sudo apt-key add -
+  sudo groupadd docker
+  sudo usermod -aG docker ${USER}
+  APPS+=(docker-ce)
+else
+  echo "$RED $APP will not installed $RESET"
+fi
+
 echo "$GREEN Installing chosen packages $RESET"
 sudo apt update
 $INSTALL_SRC_DIR/aptInstall.sh "${#APPS[@]}" "${APPS[@]}"
