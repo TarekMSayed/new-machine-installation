@@ -6,7 +6,8 @@ YELLOW=$(tput setaf 3)
 RESET=$(tput sgr 0)
 
 echo "$GREEN Installing Basic Packages $RESET"
-# TODO enable Canonical Partners repo
+# enable Canonical Partners repo
+sed -i "s~# deb http~deb http~g" /etc/apt/sources.list
 sudo add-apt-repository ppa:libreoffice/ppa
 sudo apt update
 sudo apt upgrade -y
