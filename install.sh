@@ -59,6 +59,17 @@ else
   echo "$RED $APP will not installed $RESET"
 fi
 
+unset answer
+APP='telegram'
+read -p "$YELLOW Do you want to install $APP [y/N]: $RESET" answer
+if [[ $answer =~ y|Y|yes ]]; then
+  echo "$GREEN Adding $APP $RESET"
+  sudo add-apt-repository ppa:atareao/telegram
+  APPS+=(telegram)
+else
+  echo "$RED $APP will not installed $RESET"
+fi
+
 echo "$GREEN Installing chosen packages $RESET"
 sudo apt update
 $INSTALL_SRC_DIR/aptInstall.sh "${#APPS[@]}" "${APPS[@]}"
