@@ -13,7 +13,7 @@ sudo apt update
 sudo apt upgrade -y
 APPS=(
   python3-dev python3-pip virtualenv
-  synaptic ubuntu-restricted-extras gufw apt-transport-https
+  synaptic ubuntu-restricted-extras gufw apt-transport-https htop tmux
   p7zip-rar p7zip-full unace unrar zip unzip sharutils rar uudeview mpack arj cabextract
   file-roller ssh git curl gnome-tweaks dconf-editor)
 $INSTALL_SRC_DIR/aptInstall.sh "${#APPS[@]}" "${APPS[@]}"
