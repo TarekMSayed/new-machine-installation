@@ -79,8 +79,8 @@ APP='VScode'
 read -p "$YELLOW Do you want to install $APP [y/N]: $RESET" answer
 if [[ $answer =~ y|Y|yes ]]; then
   echo "$GREEN Adding $APP $RESET"
-  sudo add-apt-repository -y "deb [arch=amd64] https://packages.microsoft.com/repos/vscode stable main"
-  wget -q https://packages.microsoft.com/keys/microsoft.asc -O- | sudo apt-key add -
+#  sudo add-apt-repository -y "deb [arch=amd64] https://packages.microsoft.com/repos/vscode stable main"
+#  wget -q https://packages.microsoft.com/keys/microsoft.asc -O- | sudo apt-key add -
   APPS+=(code)
 else
   echo "$RED $APP will not installed $RESET"
@@ -108,6 +108,24 @@ if [[ $answer =~ y|Y|yes ]]; then
   sudo groupadd docker
   sudo usermod -aG docker ${USER}
   APPS+=(docker-ce)
+else
+  echo "$RED $APP will not installed $RESET"
+fi
+
+unset answer
+APP='virtualbox'
+read -p "$YELLOW Do you want to install $APP [y/N]: $RESET" answer
+if [[ $answer =~ y|Y|yes ]]; then
+  echo "$GREEN Adding $APP $RESET"
+  sudo add-apt-repository -y "deb [arch=amd64] https://download.virtualbox.org/virtualbox/debian $(lsb_release -cs) contrib"
+  wget -q https://www.virtualbox.org/download/oracle_vbox_2016.asc -O- | sudo apt-key add -
+  wget -q https://www.virtualbox.org/download/oracle_vbox.asc -O- | sudo apt-key add -
+  # https://www.techrepublic.com/article/how-to-enable-usb-in-virtualbox/
+  sudo groupadd vboxusers
+  sudo usermod -aG vboxusers ${USER}
+  echo download Extention Back manuall https://www.virtualbox.org/wiki/Downloads
+  $INSTALL_SRC_DIR/waitKeyPress.sh
+  APPS+=(virtualbox-6.1)
 else
   echo "$RED $APP will not installed $RESET"
 fi
