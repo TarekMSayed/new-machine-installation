@@ -79,6 +79,16 @@ else
 fi
 
 unset answer
+APP='simple-screen-recorder'
+read -p "$YELLOW Do you want to install $APP [y/N]: $RESET" answer
+if [[ $answer =~ y|Y|yes ]]; then
+  echo "$GREEN Adding $APP $RESET"
+  APPS+=(simplescreenrecorder)
+else
+  echo "$RED $APP will not installed $RESET"
+fi
+
+unset answer
 APP='VScode'
 read -p "$YELLOW Do you want to install $APP [y/N]: $RESET" answer
 if [[ $answer =~ y|Y|yes ]]; then
