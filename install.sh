@@ -12,10 +12,14 @@ sudo add-apt-repository -y ppa:libreoffice/ppa
 sudo apt update
 sudo apt upgrade -y
 APPS=(
+  # python
   python3-dev python3-pip virtualenv
-  synaptic ubuntu-restricted-extras gufw apt-transport-https htop tmux
-  p7zip-rar p7zip-full unace unrar zip unzip sharutils rar uudeview mpack arj cabextract
-  file-roller ssh git curl gnome-tweaks dconf-editor)
+  # system utils
+  synaptic ubuntu-restricted-extras gufw apt-transport-https htop tmux p7zip-rar p7zip-full 
+  unace unrar zip unzip sharutils rar uudeview mpack arj cabextract gedit-plugins
+  file-roller ssh git curl vlc terminator gnome-subtitles
+  # GUI
+  gnome-tweaks dconf-editor)
 $INSTALL_SRC_DIR/aptInstall.sh "${#APPS[@]}" "${APPS[@]}"
 
 # configuration
