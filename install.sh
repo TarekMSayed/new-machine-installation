@@ -50,6 +50,20 @@ else
   echo "$RED $APP will not installed $RESET"
 fi
 
+unset answer
+APP='calibre-ebook'
+read -p "$YELLOW Do you want to install $APP [y/N]: $RESET" answer
+if [[ $answer =~ y|Y|yes ]]; then
+  echo "$GREEN Adding $APP $RESET"
+  wget -c https://download.calibre-ebook.com/5.16.0/calibre-5.16.0-x86_64.txz
+  sudo mkdir -p /opt/calibre 
+  sudo rm -rf /opt/calibre/* 
+  sudo tar xvf ./calibre-* -C /opt/calibre 
+  sudo /opt/calibre/calibre_postinstall
+else
+  echo "$RED $APP will not installed $RESET"
+fi
+
 APPS=()
 
 unset answer
