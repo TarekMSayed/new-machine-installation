@@ -31,6 +31,25 @@ if [[ ! -f ~/.ssh/id_rsa ]]; then
   ssh-keygen -t rsa -f ~/.ssh/id_rsa -N ""
 fi
 
+unset answer
+APP='golang'
+read -p "$YELLOW Do you want to install $APP [y/N]: $RESET" answer
+if [[ $answer =~ y|Y|yes ]]; then
+  echo "$GREEN installing $APP $RESET"
+  go_version="1.16.3"
+  wget -c https://golang.org/dl/go${go_version}.linux-amd64.tar.gz
+  rm -rf /usr/local/go && tar -C /usr/local -xzf go${go_version}.linux-amd64.tar.gz
+  grep -qxF 'export PATH=$PATH:/usr/local/go/bin' ~/.bashrc || echo 'export PATH=$PATH:/usr/local/go/bin' >> ~/.bashrc
+  grep -qxF 'export PATH=$PATH:$HOME/go/bin' ~/.bashrc || echo 'export PATH=$PATH:$HOME/go/bin' >> ~/.bashrc
+  go version
+  source ~/.bashrc
+  go get -u github.com/posener/complete/v2/gocomplete
+  COMP_INSTALL=1 gocomplete
+  source ~/.bashrc
+else
+  echo "$RED $APP will not installed $RESET"
+fi
+
 APPS=()
 
 unset answer
