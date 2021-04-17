@@ -37,15 +37,39 @@ read -p "$YELLOW Do you want to install $APP [y/N]: $RESET" answer
 if [[ $answer =~ y|Y|yes ]]; then
   echo "$GREEN installing $APP $RESET"
   go_version="1.16.3"
-  wget -c https://golang.org/dl/go${go_version}.linux-amd64.tar.gz
-  rm -rf /usr/local/go && tar -C /usr/local -xzf go${go_version}.linux-amd64.tar.gz
+  if [[ -d /usr/local/go ]]; then
+    installed_go=$(go version | grep -Po "(\d+\.\d+\.\d+)")
+    if [[ $installed_go = $go_version ]]; then
+      echo "$GREEN golang installed with the same version $go_version$RESET"
+    else
+      echo "$GREEN golang installed with the version $installed_go$RESET"
+      unset answer 
+      read -p "$YELLOW Do you want to install the version $go_version [y/N]: $RESET" answer
+      if [[ $answer =~ y|Y|yes ]]; then
+        wget -c https://golang.org/dl/go${go_version}.linux-amd64.tar.gz
+        sudo rm -rf /usr/local/go || true 
+        sudo tar -C /usr/local -xzf go${go_version}.linux-amd64.tar.gz
+      fi
+    fi
+  else
+    wget -c https://golang.org/dl/go${go_version}.linux-amd64.tar.gz
+    sudo rm -rf /usr/local/go || true 
+    sudo tar -C /usr/local -xzf go${go_version}.linux-amd64.tar.gz
+  fi
   grep -qxF 'export PATH=$PATH:/usr/local/go/bin' ~/.bashrc || echo 'export PATH=$PATH:/usr/local/go/bin' >> ~/.bashrc
   grep -qxF 'export PATH=$PATH:$HOME/go/bin' ~/.bashrc || echo 'export PATH=$PATH:$HOME/go/bin' >> ~/.bashrc
   go version
   source ~/.bashrc
   go get -u github.com/posener/complete/v2/gocomplete
-  COMP_INSTALL=1 gocomplete
+  echo y | COMP_INSTALL=1 gocomplete
   source ~/.bashrc
+  if [[ -f go${go_version}.linux-amd64.tar.gz ]]; then
+    unset answer
+    read -p "$YELLOW Do you want to remove the source downloaded go file [y/N]: $RESET" answer
+    if [[ $answer =~ y|Y|yes ]]; then
+      rm -rf go${go_version}.linux-amd64.tar.gz
+    fi
+  fi
 else
   echo "$RED $APP will not installed $RESET"
 fi
