@@ -49,8 +49,8 @@ APP='MKVtoolnix'
 read -p "$YELLOW Do you want to install $APP [y/N]: $RESET" answer
 if [[ $answer =~ y|Y|yes ]]; then
   echo "$GREEN Adding $APP $RESET"
-  sudo add-apt-repository -y "deb https://mkvtoolnix.download/ubuntu/ $(lsb_release -sc) main"
   wget -q -O - https://mkvtoolnix.download/gpg-pub-moritzbunkus.txt | sudo apt-key add -
+  sudo add-apt-repository -y "deb [arch=amd64] https://mkvtoolnix.download/ubuntu/ $(lsb_release -sc) main"
   APPS+=(mkvtoolnix-gui)
 else
   echo "$RED $APP will not installed $RESET"
@@ -131,9 +131,9 @@ APP='virtualbox'
 read -p "$YELLOW Do you want to install $APP [y/N]: $RESET" answer
 if [[ $answer =~ y|Y|yes ]]; then
   echo "$GREEN Adding $APP $RESET"
-  sudo add-apt-repository -y "deb [arch=amd64] https://download.virtualbox.org/virtualbox/debian $(lsb_release -cs) contrib"
   wget -q https://www.virtualbox.org/download/oracle_vbox_2016.asc -O- | sudo apt-key add -
   wget -q https://www.virtualbox.org/download/oracle_vbox.asc -O- | sudo apt-key add -
+  sudo add-apt-repository -y "deb [arch=amd64] https://download.virtualbox.org/virtualbox/debian $(lsb_release -cs) contrib"
   # https://www.techrepublic.com/article/how-to-enable-usb-in-virtualbox/
   sudo groupadd vboxusers
   sudo usermod -aG vboxusers ${USER}
